@@ -1,0 +1,40 @@
+config:
+  target: "http://192.168.3.150:18080/api"
+  phases:
+    - duration: 10
+      arrivalRate: 5
+      name: Warm up
+    - duration: 120
+      arrivalRate: 5
+      rampTo: 50
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 50
+      name: Sustained load
+  processor: "helpers/random.js"
+  plugins:
+    faker:
+      locale: en
+  defaults:
+    headers:
+      content-type: "application/json"
+scenarios:
+  - name: "Create employee"
+    flow:
+      - function: "generateRandomData"
+      - log: "fullName: {{ fullName }}"
+      - post:
+          url: "/employees"
+          json:
+            name: "{{ fullName }}"
+            age: "{{ age }}"
+            salary: "{{ salary }}"
+
+  # - name: "Fetch employee"
+  #   flow:
+  #     - get:
+  #         url: "/employees/"
+  #         json:
+  #           name: "{{ fullName }}"
+  #           age: "{{ age }}"
+  #           salary: "{{ salary }}"

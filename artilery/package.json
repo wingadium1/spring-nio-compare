@@ -1,0 +1,19 @@
+{
+  "name": "artilery-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "random.js",
+  "scripts": {
+    "create": "ARTILLERY_USE_LEGACY_REPORT_FORMAT=1;npm exec -c 'artillery run ./create-tests.yaml -o ./create-tests.json' ; npm exec -c 'artillery report create-tests.json'",
+    "fetch": "ARTILLERY_USE_LEGACY_REPORT_FORMAT=1;npm exec -c 'artillery run ./fetch-tests.yaml -o ./fetch-tests.json' ; npm exec -c 'artillery report fetch-tests.json'",
+    "load": "npm exec artillery run ./load-tests.yaml -o load-tests.json ; npm exec artillery report load-tests.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "artillery": "2.0.0-18"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0"
+  }
+}

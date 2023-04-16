@@ -1,0 +1,64 @@
+#management endpoints on a separate port
+management:
+  port: 8091
+  security:
+    enabled: false # management port is internal only. no need to secure it.
+
+spring:
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+
+  # ===============================
+  # = Mysql configurations
+  # ===============================
+  datasource:
+    url: jdbc:postgresql://postgresdb:5432/postgres?useUnicode=true&characterEncoding=UTF8&useSSL=false
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+  # ===============================
+  # = Redis configurations
+  # ===============================ß
+  redis:
+    database: 0
+    host: redis
+    port: 6379
+    password:
+    pool:
+      max-active: 5
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 3000
+
+  # ===============================
+  # = JPA configurations
+  # ===============================
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: POSTGRESQL
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        lob:
+          non_contextual_creation: true
+
+# ===============================
+# = Logging configurations
+# ===============================
+logging:
+  pattern:
+    console: "%d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{36}.%M - %msg%n"
+    file: "%d %-5level [%thread] %logger{0} : %msg%n"
+  level:
+    root: WARN
+    com.irsyad.springmysqlredis: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org:
+      hibernate.SQL: INFO
+      hibernate.type.descriptor.sql.BasicBinder: INFO
